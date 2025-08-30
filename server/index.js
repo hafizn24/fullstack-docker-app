@@ -4,14 +4,14 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 
 app.use(cors());
 app.use(express.json());
 
 // API routes
 app.get('/api/health', (req, res) => {
-  res.json({ message: 'Server is running!' });
+  res.json({ message: 'Server is running! 🚀' });
 });
 
 // Serve static files from React build

@@ -26,6 +26,6 @@ COPY --from=frontend-build /app/client/build ./public
 # Serve frontend from backend
 RUN npm install express-static
 
-EXPOSE 5000
+EXPOSE 5050
 
 CMD ["npm", "start"]
