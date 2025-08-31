@@ -1,18 +1,16 @@
-FROM node:20-alpine
+FROM node:18-alpine
 
 WORKDIR /app
 
-# Install dependencies
 COPY package*.json ./
-RUN npm install --only=production
+RUN npm install
 
-# Copy source code
 COPY . .
 
-# Environment
-ENV NODE_ENV=production
 ENV PORT=5050
-EXPOSE 5050
 
-# Start server
-CMD ["node", "server.js"]
+EXPOSE $PORT
+
+ENV CHOKIDAR_USEPOLLING=true
+
+CMD ["npm", "run", "dev"]

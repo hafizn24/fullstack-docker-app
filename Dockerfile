@@ -1,30 +1,31 @@
-# ---------- FRONTEND BUILD ----------
-FROM node:20-alpine AS frontend-build
+# Build frontend
+FROM node:20-alpine as frontend-build
 WORKDIR /app/client
 COPY client/package*.json ./
 RUN npm install
 COPY client/ ./
 RUN npm run build
 
-# ---------- BACKEND BUILD ----------
-FROM node:20-alpine AS backend-build
-WORKDIR /app
+# Build backend
+FROM node:20-alpine as backend-build
+WORKDIR /app/server
 COPY server/package*.json ./
-RUN npm install --only=production
-COPY server/ ./
+RUN npm install
 
-# ---------- FINAL IMAGE ----------
+# Final stage
 FROM node:20-alpine
 WORKDIR /app
 
-# Copy backend code + node_modules
-COPY --from=backend-build /app ./
+# Copy backend
+COPY --from=backend-build /app/server ./
+COPY server/ ./
 
-# Copy frontend build into backend's public folder
+# Copy frontend build
 COPY --from=frontend-build /app/client/build ./public
 
-ENV NODE_ENV=production
-ENV PORT=5050
+# Serve frontend from backend
+RUN npm install express-static
+
 EXPOSE 5050
 
-CMD ["node", "server.js"]
+CMD ["npm", "start"]
