@@ -19,7 +19,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/test', testRoute)
 
 app.use(express.static(path.join(__dirname, 'client', 'build')));
-app.get('/*', (req, res) => {
+app.get('/{*path}', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 
