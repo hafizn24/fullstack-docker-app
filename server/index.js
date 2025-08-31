@@ -18,8 +18,8 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/test', testRoute)
 
-app.use(express.static(path.join(__dirname, 'public', 'build')));
-app.get('/{*path}', (req, res) => {
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
