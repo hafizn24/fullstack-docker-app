@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: fullstack-docker-app
+    env: docker
+    region: singapore
+    plan: free
+    buildCommand: docker build -t fullstack-app .
+    startCommand: docker run -p $PORT:5050 fullstack-app
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
