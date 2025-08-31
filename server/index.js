@@ -18,12 +18,10 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/test', testRoute)
 
-// Serve static files from React build
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'public')));
-  
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
+  app.get('/{*path}', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
 }
 
